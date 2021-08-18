@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html><body><html5>
+	
+		
+		
+		    	<title>JROTC Ribbon Rack Maker</title>
+		<style>
+			@font-face {
+			  font-family: 'Oswald-Bold';
+			  font-weight: 300;
+			  src: url("../fonts/Oswald-Bold.ttf");
+			}
+			/* End Oswald */
+			@font-face {
+			  font-family: 'Interstate-Regular';
+			  src: url("../fonts/Interstate-Regular.ttf");
+			}
+			body {
+				/*max-width:1200px;
+				margin:auto;*/
+				background-color: #000d40;
+				background-image: url('body_bg.png');
+			}
+			h1 {
+				color:#FFF;
+				font-size:55px;
+				margin-bottom:0px;
+			}
+			a{
+				color:#FFF;
+				font-size:25px;
+				margin-bottom:0px;
+			}
+			.ribbonOn{
+				border:thick rgba(76,175,80,1.00) solid;
+			}
+			.ribbonOff{
+				border:thick transparent solid;
+			}
+			canvas {
+				background-color: #191970;
+				background-image: url('canvas_bg.png');
+				margin-bottom:5px;
+			}
+			figure {
+				text-align:center;
+				padding:5px;
+				width:245px;
+				height:90px;
+				background-color:antiquewhite;
+				background-image: url('canvas_bg.png');
+				margin:5px;
+				cursor: pointer;
+				font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, "sans-serif";
+			}
+			figure figcaption{
+				text-align:center;
+				font-size: 14px;
+				font-weight: bold;
+				width:245px;
+			}
+			.count{
+				font-size: 16px;
+				color:#F34437;
+				margin-bottom:18px;
+			}
+			.removeRibbon{
+				float:left;
+				font-size:30px;
+				font-weight:bold;
+				padding-left:10px;
+			}
+			.addRibbon{
+				float:right;
+				font-size:30px;
+				font-weight:bold;
+				padding-right:10px;
+			}
+			.plusMinus{
+			}
+			.ribbon{
+				margin-bottom:2px;
+			}
+			divider{
+				margin-top:5px;
+				margin-bottom:5px;
+				width:960px;
+			}
+			.ribbonContainer{
+			}
+		</style>
+	
+	
+		
+		<canvas id="myCanvas" style="border:1px solid #d3d3d3;" width="921" height="84"></canvas>
+		<div class="ribbonContainer">
+			<hr class="divider">
+				<figure style="float:left;" id="MedalOfHeroismFig" class="ribbonOff">
+					<figcaption>Medal of Heroism</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('MedalOfHeroism');">
+					<img src="images/racks-MedalOfHeroism.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('MedalOfHeroism');">
+					<input type="hidden" id="MedalOfHeroism" value="0">
+					<figcaption class="count" id="MedalOfHeroismCt">&nbsp;</figcaption>
+				</figure>
+				<figure style="float:left;" id="SuperiorCadetFig" class="ribbonOff">
+					<figcaption>Superior Cadet</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('SuperiorCadet');">
+					<img src="images/racks-SuperiorCadet.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('SuperiorCadet');">
+					<input type="hidden" id="SuperiorCadet" value="0">
+					<figcaption class="count" id="SuperiorCadetCt">&nbsp;</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-1-1Fig" class="ribbonOff">
+					<figcaption>Distinguished Cadet</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-1-1');">
+					<img src="images/racks-N-1-1.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-1-1');">
+					<input type="hidden" id="N-1-1" value="0">
+					<figcaption class="count" id="N-1-1Ct">N-1-1</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-1-2Fig" class="ribbonOff">
+					<figcaption>Academic Excellence</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-1-2');">
+					<img src="images/racks-N-1-2.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-1-2');">
+					<input type="hidden" id="N-1-2" value="0">
+					<figcaption class="count" id="N-1-2Ct">N-1-2</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-1-3Fig" class="ribbonOff">
+					<figcaption>Academic Achievement</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-1-3');">
+					<img src="images/racks-N-1-3.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-1-3');">
+					<input type="hidden" id="N-1-3" value="0">
+					<figcaption class="count" id="N-1-3Ct">N-1-3</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-1-4Fig" class="ribbonOff">
+					<figcaption>Perfect Attendance</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-1-4');">
+					<img src="images/racks-N-1-4.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-1-4');">
+					<input type="hidden" id="N-1-4" value="0">
+					<figcaption class="count" id="N-1-4Ct">N-1-4</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-1-5Fig" class="ribbonOff">
+					<figcaption>Student Government</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-1-5');">
+					<img src="images/racks-N-1-5.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-1-5');">
+					<input type="hidden" id="N-1-5" value="0">
+					<figcaption class="count" id="N-1-5Ct">N-1-5</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-1-6Fig" class="ribbonOff">
+					<figcaption>LET Service</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-1-6');">
+					<img src="images/racks-N-1-6.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-1-6');">
+					<input type="hidden" id="N-1-6" value="0">
+					<figcaption class="count" id="N-1-6Ct">N-1-6</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-1-7Fig" class="ribbonOff">
+					<figcaption>Optional By SAI</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-1-7');">
+					<img src="images/racks-N-1-7.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-1-7');">
+					<input type="hidden" id="N-1-7" value="0">
+					<figcaption class="count" id="N-1-7Ct">N-1-7</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-1-8Fig" class="ribbonOff">
+					<figcaption>Optional By SAI</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-1-8');">
+					<img src="images/racks-N-1-8.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-1-8');">
+					<input type="hidden" id="N-1-8" value="0">
+					<figcaption class="count" id="N-1-8Ct">N-1-8</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-1-9Fig" class="ribbonOff">
+					<figcaption>Optional By SAI</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-1-9');">
+					<img src="images/racks-N-1-9.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-1-9');">
+					<input type="hidden" id="N-1-9" value="0">
+					<figcaption class="count" id="N-1-9Ct">N-1-9</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-1-10Fig" class="ribbonOff">
+					<figcaption>Optional By SAI</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-1-10');">
+					<img src="images/racks-N-1-10.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-1-10');">
+					<input type="hidden" id="N-1-10" value="0">
+					<figcaption class="count" id="N-1-10Ct">N-1-10</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-3-1Fig" class="ribbonOff">
+					<figcaption>DAI/SAI Instructor Leadership</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-3-1');">
+					<img src="images/racks-N-3-1.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-3-1');">
+					<input type="hidden" id="N-3-1" value="0">
+					<figcaption class="count" id="N-3-1Ct">N-3-1</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-3-2Fig" class="ribbonOff">
+					<figcaption>Personal Appearance</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-3-2');">
+					<img src="images/racks-N-3-2.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-3-2');">
+					<input type="hidden" id="N-3-2" value="0">
+					<figcaption class="count" id="N-3-2Ct">N-3-2</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-3-3Fig" class="ribbonOff">
+					<figcaption>Proficiency</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-3-3');">
+					<img src="images/racks-N-3-3.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-3-3');">
+					<input type="hidden" id="N-3-3" value="0">
+					<figcaption class="count" id="N-3-3Ct">N-3-3</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-3-4Fig" class="ribbonOff">
+					<figcaption>Drill Team</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-3-4');">
+					<img src="images/racks-N-3-4.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-3-4');">
+					<input type="hidden" id="N-3-4" value="0">
+					<figcaption class="count" id="N-3-4Ct">N-3-4</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-3-5Fig" class="ribbonOff">
+					<figcaption>Orienteering</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-3-5');">
+					<img src="images/racks-N-3-5.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-3-5');">
+					<input type="hidden" id="N-3-5" value="0">
+					<figcaption class="count" id="N-3-5Ct">N-3-5</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-3-6Fig" class="ribbonOff">
+					<figcaption>Color Guard</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-3-6');">
+					<img src="images/racks-N-3-6.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-3-6');">
+					<input type="hidden" id="N-3-6" value="0">
+					<figcaption class="count" id="N-3-6Ct">N-3-6</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-3-7Fig" class="ribbonOff">
+					<figcaption>Rifle Team</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-3-7');">
+					<img src="images/racks-N-3-7.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-3-7');">
+					<input type="hidden" id="N-3-7" value="0">
+					<figcaption class="count" id="N-3-7Ct">N-3-7</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-3-8Fig" class="ribbonOff">
+					<figcaption>Adventure Training</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-3-8');">
+					<img src="images/racks-N-3-8.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-3-8');">
+					<input type="hidden" id="N-3-8" value="0">
+					<figcaption class="count" id="N-3-8Ct">N-3-8</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-3-9Fig" class="ribbonOff">
+					<figcaption>Commendation</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-3-9');">
+					<img src="images/racks-N-3-9.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-3-9');">
+					<input type="hidden" id="N-3-9" value="0">
+					<figcaption class="count" id="N-3-9Ct">N-3-9</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-3-10Fig" class="ribbonOff">
+					<figcaption>Good Conduct</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-3-10');">
+					<img src="images/racks-N-3-10.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-3-10');">
+					<input type="hidden" id="N-3-10" value="0">
+					<figcaption class="count" id="N-3-10Ct">N-3-10</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-3-11Fig" class="ribbonOff">
+					<figcaption>JCLC</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-3-11');">
+					<img src="images/racks-N-3-11.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-3-11');">
+					<input type="hidden" id="N-3-11" value="0">
+					<figcaption class="count" id="N-3-11Ct">N-3-11</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-3-12Fig" class="ribbonOff">
+					<figcaption>Optional By SAI</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-3-12');">
+					<img src="images/racks-N-3-12.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-3-12');">
+					<input type="hidden" id="N-3-12" value="0">
+					<figcaption class="count" id="N-3-12Ct">N-3-12</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-3-13Fig" class="ribbonOff">
+					<figcaption>Optional By SAI</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-3-13');">
+					<img src="images/racks-N-3-13.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-3-13');">
+					<input type="hidden" id="N-3-13" value="0">
+					<figcaption class="count" id="N-3-13Ct">N-3-13</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-3-14Fig" class="ribbonOff">
+					<figcaption>Optional By SAI</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-3-14');">
+					<img src="images/racks-N-3-14.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-3-14');">
+					<input type="hidden" id="N-3-14" value="0">
+					<figcaption class="count" id="N-3-14Ct">N-3-14</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-3-15Fig" class="ribbonOff">
+					<figcaption>Optional By SAI</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-3-15');">
+					<img src="images/racks-N-3-15.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-3-15');">
+					<input type="hidden" id="N-3-15" value="0">
+					<figcaption class="count" id="N-3-15Ct">N-3-15</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-2-1Fig" class="ribbonOff">
+					<figcaption>Varsity Athletics</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-2-1');">
+					<img src="images/racks-N-2-1.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-2-1');">
+					<input type="hidden" id="N-2-1" value="0">
+					<figcaption class="count" id="N-2-1Ct">N-2-1</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-2-2Fig" class="ribbonOff">
+					<figcaption>JROTC Physical Fitness Award</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-2-2');">
+					<img src="images/racks-N-2-2.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-2-2');">
+					<input type="hidden" id="N-2-2" value="0">
+					<figcaption class="count" id="N-2-2Ct">N-2-2</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-2-3Fig" class="ribbonOff">
+					<figcaption>JROTC Athletics</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-2-3');">
+					<img src="images/racks-N-2-3.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-2-3');">
+					<input type="hidden" id="N-2-3" value="0">
+					<figcaption class="count" id="N-2-3Ct">N-2-3</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-2-4Fig" class="ribbonOff">
+					<figcaption>Optional By SAI</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-2-4');">
+					<img src="images/racks-N-2-4.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-2-4');">
+					<input type="hidden" id="N-2-4" value="0">
+					<figcaption class="count" id="N-2-4Ct">N-2-4</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-2-5Fig" class="ribbonOff">
+					<figcaption>Optional By SAI</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-2-5');">
+					<img src="images/racks-N-2-5.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-2-5');">
+					<input type="hidden" id="N-2-5" value="0">
+					<figcaption class="count" id="N-2-5Ct">N-2-5</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-4-1Fig" class="ribbonOff">
+					<figcaption>Parade</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-4-1');">
+					<img src="images/racks-N-4-1.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-4-1');">
+					<input type="hidden" id="N-4-1" value="0">
+					<figcaption class="count" id="N-4-1Ct">N-4-1</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-4-2Fig" class="ribbonOff">
+					<figcaption>Recruiting</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-4-2');">
+					<img src="images/racks-N-4-2.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-4-2');">
+					<input type="hidden" id="N-4-2" value="0">
+					<figcaption class="count" id="N-4-2Ct">N-4-2</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-4-3Fig" class="ribbonOff">
+					<figcaption>Optional By SAI</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-4-3');">
+					<img src="images/racks-N-4-3.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-4-3');">
+					<input type="hidden" id="N-4-3" value="0">
+					<figcaption class="count" id="N-4-3Ct">N-4-3</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-4-4Fig" class="ribbonOff">
+					<figcaption>Optional By SAI</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-4-4');">
+					<img src="images/racks-N-4-4.gif" width="130px" class="ribbon">
+
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-4-4');">
+					<input type="hidden" id="N-4-4" value="0">
+					<figcaption class="count" id="N-4-4Ct">N-4-4</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-4-5Fig" class="ribbonOff">
+					<figcaption>Optional By SAI</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-4-5');">
+					<img src="images/racks-N-4-5.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-4-5');">
+					<input type="hidden" id="N-4-5" value="0">
+					<figcaption class="count" id="N-4-5Ct">N-4-5</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-4-6Fig" class="ribbonOff">
+					<figcaption>Service Learning</figcaption>
+					<img src="images/racks-minus.png" class="plusMinus" onclick="removeRibbon('N-4-6');">
+					<img src="images/racks-N-4-6.gif" width="130px" class="ribbon">
+					<img src="images/racks-plus.png" class="plusMinus" onclick="addRibbon('N-4-6');">
+					<input type="hidden" id="N-4-6" value="0">
+					<figcaption class="count" id="N-4-6Ct">N-4-6</figcaption>
+				</figure>
+				<figure style="float:left;" id="N-4-7Fig" class="ribbonOff">
+					<figcaption>Excellent Staff Performance</figcaption>
+					<img src="images/minus.png" class="plusMinus" onClick="removeRibbon('N-4-7');"/>
+					<img src="images/N-4-7.gif" width="130px" class="ribbon"/>
+					<img src="images/plus.png" class="plusMinus" onClick="addRibbon('N-4-7');"/>
+					<input type="hidden" id="N-4-7" value="0"/>
+					<figcaption class="count" id="N-4-7Ct">N-4-7</figcaption>
+				</figure>
+			<div style="clear:both;"></div>
+		</div>
+		<hr>
+
+	
+	<script type="text/javascript">
+
+		function ribbonCounter(oop){
+			/*get ribbonCount from hidden field values*/
+			var ct = 0;
+			for (i = 0; i < 39; i++) {	
+				if (document.getElementById(oop[i]).value >= 1){
+					ct++;
+				}
+			} 	
+			return ct;
+		}
+
+		function rackEmUp(){
+			var imgHeight = 84;
+			var imgWidth = 307;
+
+			/*Ribbons by Order of Precidence*/
+			var ribbonsOOP = ['MedalOfHeroism', 'SuperiorCadet', 'N-1-1', 'N-1-2', 'N-1-3', 'N-1-4', 'N-1-5', 'N-1-6', 'N-1-7', 'N-1-8', 'N-1-9', 'N-1-10', 'N-3-1', 'N-3-2', 'N-3-3', 'N-3-4', 'N-3-5', 'N-3-6', 'N-3-7', 'N-3-8', 'N-3-9', 'N-3-10', 'N-3-11', 'N-3-12', 'N-3-13', 'N-3-14', 'N-3-15', 'N-2-1', 'N-2-2', 'N-2-3', 'N-2-4', 'N-2-5', 'N-4-1', 'N-4-2', 'N-4-3', 'N-4-4', 'N-4-5', 'N-4-6', 'N-4-7'];
+			/*39 total ribbons*/			
+			/*Column Positions*/
+			var colPOS = ['0', '307', '153.5', '0', '307', '153.5', '0', '307', '153.5', '0', '307', '153.5', '0', '307', '153.5', '0', '307', '153.5', '0', '307', '153.5', '0', '307', '153.5', '0', '307', '153.5', '0', '307', '153.5', '0', '307', '153.5', '0', '307', '153.5', '0', '307', '153.5', '0'];
+			/*Row Positions*/
+			var rowPOS = ['0','84','84','84','168','168','168','252','252','252','336','336','336','420','420','420','504','504','504','588','588','588','672','672','672','756','756','756','840','840','840','924','924','924','1008','1008','1008'];
+
+			var ribbonCount = ribbonCounter(ribbonsOOP);				
+			var rowCount = Math.ceil(ribbonCount/3);
+
+			/*set canvas height*/			
+			if (ribbonCount >= 3){
+				var canvasHeight = (rowCount*imgHeight);
+			} else {
+				var canvasHeight = 84;
+			}	
+			document.getElementById("myCanvas").height = canvasHeight;
+
+			/*[ POS 1 ][ POS 2 ][ POS 3 ]   [0,0]  |  [307,0]  |  [614,0]   */
+			/*    [ POS 4 ][ POS 5 ]          [153.5,0]  |  [460.5,0]       */
+			/*         [ POS 6 ]                      [307,0]               */		
+			var positions = [];
+			var firstRowComplete = false;
+
+			for (i = 0; i < ribbonCount; i++) {											
+				/*row 1*/
+				if (i<=3 && firstRowComplete == false){
+					if (colPOS[ribbonCount] == 307){
+						positions.push("307,0");
+						firstRowComplete = true;
+					} else if (colPOS[ribbonCount] == 153.5){
+						positions.push("153.5,0");
+						positions.push("460.5,0");
+						firstRowComplete = true;
+					} else {
+						positions.push("0,0");
+						positions.push("307,0");
+						positions.push("614,0");		
+						firstRowComplete = true;				
+					}
+				} else {
+						positions.push("0," + rowPOS[i]);
+						i++;
+						positions.push("307," + rowPOS[i]);
+						i++;
+						positions.push("614," + rowPOS[i]);							
+				}					
+			} 	
+
+			var itt = 0;				
+			/*set canvas*/
+			var c = document.getElementById("myCanvas");
+			var ctx = c.getContext("2d");
+
+			for (i = 0; i < 39; i++) {
+				var tRibbonCount = document.getElementById(ribbonsOOP[i]).value;
+				if (tRibbonCount >= 1){
+
+					var imgName = "" + ribbonsOOP[i] + ".gif";						
+					var p = positions[itt].split(",");
+
+					drawImg(c,ctx,p[0],p[1],imgName);
+
+					if (tRibbonCount >= 10){
+						var coorX = (parseInt(p[0]) + 53.5);
+						var coorY = (parseInt(p[1]) + 22);
+						drawImg(c,ctx,coorX,coorY,"gold_lamp.png");
+						var coorX = (parseInt(p[0]) + 123.5);
+						var coorY = (parseInt(p[1]) + 22);
+						drawImg(c,ctx,coorX,coorY,"gold_lamp.png");
+						var coorX = (parseInt(p[0]) + 193.5);
+						var coorY = (parseInt(p[1]) + 22);
+						drawImg(c,ctx,coorX,coorY,"gold_lamp.png");
+
+					} else if (tRibbonCount > 1){
+						/*Add Lamps*/
+						/*[ POS 1 ][ POS 2 ][ POS 3 ]   [0,0]  |  [123.5,22]  |  [614,0]   */
+						/*    [ POS 4 ][ POS 5 ]          [153.5,0]  |  [460.5,0]       */
+						/*         [ POS 6 ]                      [123.5,22]               */	
+						switch (tRibbonCount) {
+							case "2":
+								var coorX = (parseInt(p[0]) + 123.5);
+								var coorY = (parseInt(p[1]) + 22);
+								drawImg(c,ctx,coorX,coorY,"bronze_lamp.png");
+								break;
+							case "3":
+								var coorX = (parseInt(p[0]) + 123.5);
+								var coorY = (parseInt(p[1]) + 22);
+								drawImg(c,ctx,coorX,coorY,"silver_lamp.png");
+								break;
+							case "4":
+								var coorX = (parseInt(p[0]) + 123.5);
+								var coorY = (parseInt(p[1]) + 22);
+								drawImg(c,ctx,coorX,coorY,"gold_lamp.png");
+								break;
+							case "5":
+								var coorX = (parseInt(p[0]) + 83.5);
+								var coorY = (parseInt(p[1]) + 22);
+								drawImg(c,ctx,coorX,coorY,"gold_lamp.png");
+								var coorX = (parseInt(p[0]) + 163.5);
+								var coorY = (parseInt(p[1]) + 22);
+								drawImg(c,ctx,coorX,coorY,"bronze_lamp.png");
+								break;
+							case "6":
+								var coorX = (parseInt(p[0]) + 83.5);
+								var coorY = (parseInt(p[1]) + 22);
+								drawImg(c,ctx,coorX,coorY,"gold_lamp.png");
+								var coorX = (parseInt(p[0]) + 163.5);
+								var coorY = (parseInt(p[1]) + 22);
+								drawImg(c,ctx,coorX,coorY,"silver_lamp.png");
+								break;
+							case "7":
+								var coorX = (parseInt(p[0]) + 83.5);
+								var coorY = (parseInt(p[1]) + 22);
+								drawImg(c,ctx,coorX,coorY,"gold_lamp.png");
+								var coorX = (parseInt(p[0]) + 163.5);
+								var coorY = (parseInt(p[1]) + 22);
+								drawImg(c,ctx,coorX,coorY,"gold_lamp.png");
+								break;
+							case "8":
+								var coorX = (parseInt(p[0]) + 53.5);
+								var coorY = (parseInt(p[1]) + 22);
+								drawImg(c,ctx,coorX,coorY,"gold_lamp.png");
+								var coorX = (parseInt(p[0]) + 123.5);
+								var coorY = (parseInt(p[1]) + 22);
+								drawImg(c,ctx,coorX,coorY,"gold_lamp.png");
+								var coorX = (parseInt(p[0]) + 193.5);
+								var coorY = (parseInt(p[1]) + 22);
+								drawImg(c,ctx,coorX,coorY,"bronze_lamp.png");
+								break;
+							case "9":
+								var coorX = (parseInt(p[0]) + 53.5);
+								var coorY = (parseInt(p[1]) + 22);
+								drawImg(c,ctx,coorX,coorY,"gold_lamp.png");
+								var coorX = (parseInt(p[0]) + 123.5);
+								var coorY = (parseInt(p[1]) + 22);
+								drawImg(c,ctx,coorX,coorY,"gold_lamp.png");
+								var coorX = (parseInt(p[0]) + 193.5);
+								var coorY = (parseInt(p[1]) + 22);
+								drawImg(c,ctx,coorX,coorY,"silver_lamp.png");
+								break;
+						}
+
+						/*
+							var imageObj = new Image();
+							imageObj.src = "bronze_lamp.png";
+							var coorX = (parseInt(p[0]) + 53.5);
+							var coorY = (parseInt(p[1]) + 22);
+							ctx.drawImage(imageObj, coorX, coorY);
+							var imageObj = new Image();	
+							imageObj.src = "bronze_lamp.png";
+							var coorX = (parseInt(p[0]) + 123.5);
+							var coorY = (parseInt(p[1]) + 22);
+							ctx.drawImage(imageObj, coorX, coorY);	
+							var imageObj = new Image();	
+							imageObj.src = "bronze_lamp.png";
+							var coorX = (parseInt(p[0]) + 193.5);
+							var coorY = (parseInt(p[1]) + 22);
+							ctx.drawImage(imageObj, coorX, coorY);	
+						*/
+
+					}
+					itt++;
+				}
+			} 		
+		}
+
+		function drawImg(c,ctx,coorX,coorY,image){
+			var imageObj = new Image();
+			imageObj.src = image;				
+			imageObj.onload = function(){
+				ctx.drawImage(imageObj, coorX, coorY);
+			};				
+			var img = c.toDataURL("image/png");
+		}
+
+		function addRibbon(ribbon){
+			var cval = document.getElementById(ribbon).value;
+			cval++;
+			document.getElementById(ribbon).value = cval;	
+			var ct = ribbon + "Ct";
+			if (ribbon == "MedalOfHeroism"){ribbon = "Medal of Heroism";}
+			else if (ribbon == "SuperiorCadet"){ribbon = "Superior Cadet";}
+			if (cval > 10){
+				document.getElementById(ct).innerHTML = ribbon + " (MAX 10)";
+
+			} else {
+				document.getElementById(ct).innerHTML = ribbon + " (x" + cval + ")";
+			}
+			rackEmUp();
+			highlightRibbons();
+		}
+
+		function removeRibbon(ribbon){
+			var cval = document.getElementById(ribbon).value;
+			if (cval > 0){
+				cval--;
+			} 
+			document.getElementById(ribbon).value = cval;	
+			var ct = ribbon + "Ct";
+			if (ribbon == "MedalOfHeroism"){ribbon = "Medal of Heroism";}
+			else if (ribbon == "SuperiorCadet"){ribbon = "Superior Cadet";}
+			if (cval > 10){
+				document.getElementById(ct).innerHTML = ribbon + " (MAX 10)";
+
+			} else {
+				document.getElementById(ct).innerHTML = ribbon + " (x" + cval + ")";
+			}
+			rackEmUp();
+			highlightRibbons();
+		}
+
+		function highlightRibbons(){
+			var ribbonsOOP = ['MedalOfHeroism', 'SuperiorCadet', 'N-1-1', 'N-1-2', 'N-1-3', 'N-1-4', 'N-1-5', 'N-1-6', 'N-1-7', 'N-1-8', 'N-1-9', 'N-1-10', 'N-3-1', 'N-3-2', 'N-3-3', 'N-3-4', 'N-3-5', 'N-3-6', 'N-3-7', 'N-3-8', 'N-3-9', 'N-3-10', 'N-3-11', 'N-3-12', 'N-3-13', 'N-3-14', 'N-3-15', 'N-2-1', 'N-2-2', 'N-2-3', 'N-2-4', 'N-2-5', 'N-4-1', 'N-4-2', 'N-4-3', 'N-4-4', 'N-4-5', 'N-4-6', 'N-4-7'];
+			for (i = 0; i < 39; i++) {
+				var figid = ribbonsOOP[i] + "Fig";	
+				var cval = document.getElementById(ribbonsOOP[i]).value;
+				if (cval >= 1){
+					document.getElementById(figid).className = "ribbonOn";	
+				} else {						
+					document.getElementById(figid).className = "ribbonOff";
+				}
+			}				
+		}
+
+	</script>
+</html5></body></html>
